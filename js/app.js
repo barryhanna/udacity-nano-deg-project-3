@@ -4,6 +4,9 @@ const TOP = 130;
 const BOTTOM = 400;
 const BLOCK_WIDTH = 101;
 const BLOCK_HEIGHT = 83;
+const ENEMY_ROW_TOP = 50;
+const ENEMY_ROW_MIDDLE = 140;
+const ENEMY_ROW_BOTTOM = 230;
 
 // Enemies our player must avoid
 var Enemy = function(x,y,speed) {
@@ -54,6 +57,7 @@ class Player {
 
     update() {
         this.checkCollision();
+        this.gameWon();
     }
 
     render() {
@@ -62,14 +66,20 @@ class Player {
 
     checkCollision() {
         for(const enemy of allEnemies) {
-            console.log(`Checking collision with ${enemy}`);
-            console.log(`X: ${enemy.x} Y: ${enemy.y}`);
-            console.log(`X: ${enemy.width} Y: ${enemy.height}`);
-            if(this.x < enemy.x + enemy.width && this.x + this.width > enemy.x && this.y < enemy.y + enemy.height && this.y + this.height > enemy.y) {
-                console.log(`You've collided with ${enemy}`);
+            if(this.x < enemy.x + enemy.width && 
+               this.x + this.width > enemy.x && 
+               this.y < enemy.y + enemy.height && 
+               this.y + this.height > enemy.y) {
                 this.respawn();
             }
         }
+    }
+
+    gameWon() {
+        if(!(this.y < 0)) {
+            return;
+        }
+        this.respawn();
     }
 
     handleInput(key) {
@@ -101,9 +111,9 @@ class Player {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-const enemyRowOne = new Enemy(0,50,60);
-const enemyRowTwo = new Enemy(0,140,30);
-const enemyRowThree = new Enemy(0,230,40);
+const enemyRowOne = new Enemy(0,ENEMY_ROW_TOP,60);
+const enemyRowTwo = new Enemy(0,ENEMY_ROW_MIDDLE,30);
+const enemyRowThree = new Enemy(0,ENEMY_ROW_BOTTOM,40);
 
 const allEnemies = [];
 allEnemies.push(enemyRowOne);
