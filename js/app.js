@@ -12,6 +12,8 @@ var Enemy = function(x,y,speed) {
     this.x = x;
     this.y = y;
     this.speed = speed;
+    this.height = 40;
+    this.width = 80;
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
@@ -24,8 +26,12 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
     this.x += this.speed * dt;
+
+    // when the bug reaches the end of the screen,
+    // it should start again off screen instead of
+    // just appearing.
     if(this.x > RIGHT) {
-        this.x = LEFT - 101;
+        this.x = LEFT - BLOCK_WIDTH;
     }
 };
 
@@ -41,15 +47,29 @@ class Player {
     constructor(x, y) {
         this.x = x;
         this.y = y;
+        this.height = 50;
+        this.width = 60;
         this.sprite = 'images/char-boy.png';
     }
 
     update() {
-
+        this.checkCollision();
     }
 
     render() {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    }
+
+    checkCollision() {
+        for(const enemy of allEnemies) {
+            console.log(`Checking collision with ${enemy}`);
+            console.log(`X: ${enemy.x} Y: ${enemy.y}`);
+            console.log(`X: ${enemy.width} Y: ${enemy.height}`);
+            if(this.x < enemy.x + enemy.width && this.x + this.width > enemy.x && this.y < enemy.y + enemy.height && this.y + this.height > enemy.y) {
+                console.log(`You've collided with ${enemy}`);
+                this.respawn();
+            }
+        }
     }
 
     handleInput(key) {
@@ -69,6 +89,11 @@ class Player {
             if(this.y + BLOCK_HEIGHT < TOP) return;
             this.y -= BLOCK_HEIGHT;
         }
+    }
+
+    respawn() {
+        this.x = 203;
+        this.y = BOTTOM;
     }
 }
 
