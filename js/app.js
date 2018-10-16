@@ -35,6 +35,7 @@ Enemy.prototype.update = function(dt) {
     // just appearing.
     if(this.x > RIGHT) {
         this.x = LEFT - BLOCK_WIDTH;
+        this.speed = BLOCK_WIDTH + Math.floor(Math.random() * 300);
     }
 };
 
@@ -79,24 +80,24 @@ class Player {
         if(!(this.y < 0)) {
             return;
         }
-        this.respawn();
+        setTimeout(() => this.respawn(),500);
     }
 
     handleInput(key) {
         if(key === 'left') {
-            if(this.x - BLOCK_WIDTH < LEFT) return;
+            if(this.x - BLOCK_WIDTH < LEFT)  { return; }
             this.x -= BLOCK_WIDTH;
         }
         if(key === 'right') {
-            if(this.x + BLOCK_WIDTH > RIGHT) return;
+            if(this.x + BLOCK_WIDTH > RIGHT) { return; }
             this.x += BLOCK_WIDTH;
         }
         if(key === 'down') {
-            if(this.y + BLOCK_HEIGHT > BOTTOM) return;
+            if(this.y + BLOCK_HEIGHT > BOTTOM) { return; }
             this.y += BLOCK_HEIGHT;
         }
         if(key === 'up') {
-            if(this.y + BLOCK_HEIGHT < TOP) return;
+            if(this.y + BLOCK_HEIGHT < TOP) { return; }
             this.y -= BLOCK_HEIGHT;
         }
     }
@@ -111,9 +112,9 @@ class Player {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-const enemyRowOne = new Enemy(0,ENEMY_ROW_TOP,60);
-const enemyRowTwo = new Enemy(0,ENEMY_ROW_MIDDLE,30);
-const enemyRowThree = new Enemy(0,ENEMY_ROW_BOTTOM,40);
+const enemyRowOne = new Enemy(0,ENEMY_ROW_TOP, BLOCK_WIDTH + (Math.floor(Math.random() * 300)));
+const enemyRowTwo = new Enemy(0,ENEMY_ROW_MIDDLE, BLOCK_WIDTH + (Math.floor(Math.random() * 300)));
+const enemyRowThree = new Enemy(0,ENEMY_ROW_BOTTOM, BLOCK_WIDTH + (Math.floor(Math.random() * 300)));
 
 const allEnemies = [];
 allEnemies.push(enemyRowOne);
@@ -121,8 +122,6 @@ allEnemies.push(enemyRowTwo);
 allEnemies.push(enemyRowThree);
 
 const player = new Player(203,BOTTOM);
-
-
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
