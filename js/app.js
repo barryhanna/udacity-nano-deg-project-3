@@ -1,3 +1,10 @@
+const LEFT = 0;
+const RIGHT = 505;
+const TOP = 130;
+const BOTTOM = 400;
+const BLOCK_WIDTH = 101;
+const BLOCK_HEIGHT = 83;
+
 // Enemies our player must avoid
 var Enemy = function(x,y,speed) {
     // Variables applied to each of our instances go here,
@@ -17,6 +24,9 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
     this.x += this.speed * dt;
+    if(this.x > RIGHT) {
+        this.x = LEFT - 101;
+    }
 };
 
 // Draw the enemy on the screen, required method for game
@@ -43,7 +53,22 @@ class Player {
     }
 
     handleInput(key) {
-
+        if(key === 'left') {
+            if(this.x - BLOCK_WIDTH < LEFT) return;
+            this.x -= BLOCK_WIDTH;
+        }
+        if(key === 'right') {
+            if(this.x + BLOCK_WIDTH > RIGHT) return;
+            this.x += BLOCK_WIDTH;
+        }
+        if(key === 'down') {
+            if(this.y + BLOCK_HEIGHT > BOTTOM) return;
+            this.y += BLOCK_HEIGHT;
+        }
+        if(key === 'up') {
+            if(this.y + BLOCK_HEIGHT < TOP) return;
+            this.y -= BLOCK_HEIGHT;
+        }
     }
 }
 
@@ -60,7 +85,7 @@ allEnemies.push(enemyRowOne);
 allEnemies.push(enemyRowTwo);
 allEnemies.push(enemyRowThree);
 
-const player = new Player(203,405);
+const player = new Player(203,BOTTOM);
 
 
 
