@@ -165,7 +165,8 @@ class Collectable {
     }
 
     update() {
-        collectables = collectables.filter((item) => !item.collected);
+        // remove items that have been marked collected (item.collected)
+        collectables = collectables.filter(item => !item.collected);
     }
 
     render() {
@@ -191,10 +192,14 @@ class GemStone extends Collectable {
     }
 }
 
+function getRandomPosition(max) {
+    return Math.floor(Math.random() * max);
+}
+
 let collectables = [];
 
-const collectableOne = new GemStone(200,200,'images/Gem Blue.png',50);
-const collectableTwo = new PowerUp(300,y=50,'images/Heart.png',1);
+const collectableOne = new GemStone(getRandomPosition(RIGHT),getRandomPosition(BOTTOM),'images/Gem Blue.png',50);
+const collectableTwo = new PowerUp(getRandomPosition(RIGHT),getRandomPosition(BOTTOM),'images/Heart.png',1);
 
 collectables.push(collectableOne);
 collectables.push(collectableTwo);
