@@ -54,6 +54,8 @@ class Player {
         this.height = 50;
         this.width = 60;
         this.sprite = 'images/char-boy.png';
+        this.lives = 3;
+        this.points = 0;
     }
 
     update() {
@@ -71,7 +73,24 @@ class Player {
                this.x + this.width > enemy.x && 
                this.y < enemy.y + enemy.height && 
                this.y + this.height > enemy.y) {
-                this.respawn();
+               setTimeout(() => this.respawn(),100);
+            }
+        }
+
+        for(const item of collectables) {
+            if(!item.collected) {
+                if(this.x < item.x + item.width && 
+                   this.x + this.width > item.x && 
+                   this.y < item.y + item.height && 
+                   this.y + this.height > item.y) {
+                    if(item instanceof GemStone) {
+                        player.points += item.value;
+                    }
+                    if(item instanceof PowerUp) {
+                        player.lives += item.value;
+                    }
+                    item.collected = true; 
+                }
             }
         }
     }
@@ -122,6 +141,63 @@ allEnemies.push(enemyRowTwo);
 allEnemies.push(enemyRowThree);
 
 const player = new Player(203,BOTTOM);
+
+class Game {
+    constructor(level=1) {
+        this.level = level;
+    }
+
+    nextLevel() {
+        this.level++;
+    }
+}
+
+const game = new Game();
+
+class Collectable {
+    constructor(x,y,sprite) {
+        this.x = x;
+        this.y = y;
+        this.sprite = sprite;
+        this.collected = false;
+        this.width = BLOCK_WIDTH;
+        this.height = BLOCK_HEIGHT;
+    }
+
+    update() {
+        collectables = collectables.filter((item) => !item.collected);
+    }
+
+    render() {
+        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    }
+}
+
+class PowerUp extends Collectable {
+    constructor(x,y,sprite,value) {
+        super(x,y,sprite);
+        this.value = value;
+    }
+}
+
+class GemStone extends Collectable {
+    constructor(x, y, sprite,value) {
+        super(x,y,sprite);
+        this.colors = ['images/Gem Blue.png',
+                       'images/Gem Green.png',
+                       'images/Gem Orange.png'];
+        this.sprite = this.colors[Math.floor(Math.random() * this.colors.length)];
+        this.value = value;
+    }
+}
+
+let collectables = [];
+
+const collectableOne = new GemStone(200,200,'images/Gem Blue.png',50);
+const collectableTwo = new PowerUp(300,y=50,'images/Heart.png',1);
+
+collectables.push(collectableOne);
+collectables.push(collectableTwo);
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.

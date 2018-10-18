@@ -94,6 +94,10 @@ var Engine = (function(global) {
             enemy.update(dt);
         });
         player.update();
+
+        collectables.forEach(function(item) {
+            item.update(dt);
+        });
     }
 
     /* This function initially draws the "game level", it will then call
@@ -154,6 +158,10 @@ var Engine = (function(global) {
         });
 
         player.render();
+
+        collectables.forEach(function(item) {
+            item.render();
+        });
     }
 
     /* This function does nothing but it could have been a good place to
@@ -173,7 +181,11 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
+        'images/Gem Blue.png',
+        'images/Gem Green.png',
+        'images/Gem Orange.png',
+        'images/Heart.png'
     ]);
     Resources.onReady(init);
 
