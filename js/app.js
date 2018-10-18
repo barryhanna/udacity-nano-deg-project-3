@@ -7,6 +7,7 @@ const BLOCK_HEIGHT = 83;
 const ENEMY_ROW_TOP = 50;
 const ENEMY_ROW_MIDDLE = 140;
 const ENEMY_ROW_BOTTOM = 230;
+const ROWS = [ENEMY_ROW_TOP,ENEMY_ROW_MIDDLE,ENEMY_ROW_BOTTOM];
 
 // Enemies our player must avoid
 var Enemy = function(x,y,speed) {
@@ -89,6 +90,13 @@ class Player {
                     if(item instanceof PowerUp) {
                         player.lives += item.value;
                     }
+                    if(item instanceof DeathRock) {
+                        if(allEnemies.length > 5) {
+                            for(var i = 0;i < 3;i++) {
+                                allEnemies.pop();
+                            }
+                        }
+                    }
                     item.collected = true; 
                 }
             }
@@ -99,6 +107,8 @@ class Player {
         if(!(this.y < 0)) {
             return;
         }
+        this.y = 0;
+        game.nextLevel();
         setTimeout(() => this.respawn(),500);
     }
 
@@ -145,10 +155,24 @@ const player = new Player(203,BOTTOM);
 class Game {
     constructor(level=1) {
         this.level = level;
+        this.won = false;
     }
 
     nextLevel() {
+        collectables = [];
         this.level++;
+        if(this.level % 2 === 0) {
+            collectables.push(new GemStone(getRandomPosition(RIGHT),getRandomPosition(BOTTOM),'images/Gem Blue.png',50));
+        }
+        if(this.level % 3 === 0) {
+            allEnemies.push(new Enemy(this.level * 10,ROWS[getRandomPosition(3)], BLOCK_WIDTH + (Math.floor(Math.random() * 300))));
+        }
+        if(this.level % 5 === 0) {
+            collectables.push(new PowerUp(getRandomPosition(RIGHT),getRandomPosition(BOTTOM),'images/Heart.png',1));
+        }
+        if(this.level % 11 === 0) {
+            collectables.push(new DeathRock(getRandomPosition(RIGHT),getRandomPosition(BOTTOM),'images/Rock.png'));
+        }
     }
 }
 
@@ -192,17 +216,17 @@ class GemStone extends Collectable {
     }
 }
 
+class DeathRock extends Collectable {
+    constructor(x,y,sprite) {
+        super(x,y,sprite);
+    }
+}
+
 function getRandomPosition(max) {
     return Math.floor(Math.random() * max);
 }
 
 let collectables = [];
-
-// const collectableOne = new GemStone(getRandomPosition(RIGHT),getRandomPosition(BOTTOM),'images/Gem Blue.png',50);
-// const collectableTwo = new PowerUp(getRandomPosition(RIGHT),getRandomPosition(BOTTOM),'images/Heart.png',1);
-
-collectables.push(collectableOne);
-collectables.push(collectableTwo);
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
