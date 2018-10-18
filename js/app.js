@@ -198,8 +198,8 @@ function getRandomPosition(max) {
 
 let collectables = [];
 
-const collectableOne = new GemStone(getRandomPosition(RIGHT),getRandomPosition(BOTTOM),'images/Gem Blue.png',50);
-const collectableTwo = new PowerUp(getRandomPosition(RIGHT),getRandomPosition(BOTTOM),'images/Heart.png',1);
+// const collectableOne = new GemStone(getRandomPosition(RIGHT),getRandomPosition(BOTTOM),'images/Gem Blue.png',50);
+// const collectableTwo = new PowerUp(getRandomPosition(RIGHT),getRandomPosition(BOTTOM),'images/Heart.png',1);
 
 collectables.push(collectableOne);
 collectables.push(collectableTwo);
