@@ -170,7 +170,6 @@ var Engine = (function(global) {
      */
     function reset() {
         // noop
-        console.log("RESET");
     }
 
     /* Go ahead and load all of the images we know we're going to need to

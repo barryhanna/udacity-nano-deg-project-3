@@ -166,19 +166,30 @@ class Game {
         collectables = [];
         this.level++;
         if(this.level % 2 === 0) {
-            collectables.push(new GemStone(getRandomPosition(RIGHT),getRandomPosition(BOTTOM),'images/Gem Blue.png',50));
+            collectables.push(new GemStone(getRandomXPosition(),getRandomPosition(BOTTOM),'images/Gem Blue.png',50));
         }
         if(this.level % 3 === 0) {
             allEnemies.push(new Enemy(this.level * 10,ROWS[getRandomPosition(3)], BLOCK_WIDTH + (Math.floor(Math.random() * 300))));
         }
         if(this.level % 5 === 0) {
-            collectables.push(new PowerUp(getRandomPosition(RIGHT),getRandomPosition(BOTTOM),'images/Heart.png',1));
+            collectables.push(new PowerUp(getRandomXPosition(),getRandomPosition(BOTTOM),'images/Heart.png',1));
         }
         if(this.level % 11 === 0) {
-            collectables.push(new DeathRock(getRandomPosition(RIGHT),getRandomPosition(BOTTOM),'images/Rock.png'));
+            collectables.push(new DeathRock(getRandomXPosition(),getRandomPosition(BOTTOM),'images/Rock.png'));
         }
         scoreboard.update(player.lives,player.points,this.level);
     }
+}
+
+function getRandomXPosition() {
+    let x = getRandomPosition(RIGHT);
+    if(x < 1) {
+        x = 0;
+    }
+    if((x+BLOCK_WIDTH) > RIGHT) {
+        x = RIGHT-BLOCK_WIDTH;
+    }
+    return x;
 }
 
 const game = new Game(1);
