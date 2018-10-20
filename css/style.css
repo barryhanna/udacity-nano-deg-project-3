@@ -21,6 +21,10 @@ li {
 	display: inline-block;
 }
 
+img:hover {
+	transform: scale(1.3);
+}
+
 .is-hidden {
   display: none;
 }

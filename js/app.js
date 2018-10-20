@@ -317,6 +317,21 @@ class Modal {
     this.overlay.classList.add('is-hidden');
   }
 }
+
 const modal = new Modal(document.querySelector('.modal-overlay'));
 window.openCharacterModal = modal.open.bind(modal);
-//window.openCharacterModal();
+
+const characterImages = {
+    boy: "images/char-boy.png",
+    cat: "images/char-cat-girl.png",
+    horn: "images/char-horn-girl.png",
+    pink: "images/char-pink-girl.png",
+    princess: "images/char-princess-girl.png"
+}
+const characters = document.querySelectorAll("img");
+
+characters.forEach((character) => character.addEventListener("click",
+    (e) => {
+        player.sprite = characterImages[e.target.dataset.char];
+    }       
+));
