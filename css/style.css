@@ -2,6 +2,10 @@ body {
     text-align: center;
 }
 
+h1 {
+  font-family: 'Press Start 2P';
+}
+
 p {
 	font-family: 'Press Start 2P';
 	font-size: 1.5em;
@@ -11,9 +15,12 @@ p {
 }
 
 button {
+  font-family: 'Press Start 2P';
 	width: 505px;
-	font-size: 2em;
+	font-size: 1em;
 	margin-top: 30px;
+  height: 50px;
+
 }
 
 li {

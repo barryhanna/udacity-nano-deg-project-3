@@ -139,6 +139,7 @@ class Player {
             this.lives--;
             if(this.lives === 0) {
                 gameOver();
+                runGame();
             }
         }
     }
