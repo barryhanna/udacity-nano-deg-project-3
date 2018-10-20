@@ -1,6 +1,22 @@
-frontend-nanodegree-arcade-game
-===============================
+## Frontend Nano Degree Arcade Game
 
-Students should use this [rubric](https://review.udacity.com/#!/projects/2696458597/rubric) for self-checking their submission. Make sure the functions you write are **object-oriented** - either class functions (like Player and Enemy) or class prototype functions such as Enemy.prototype.checkCollisions, and that the keyword 'this' is used appropriately within your class and class prototype functions to refer to the object the function is called upon. Also be sure that the **readme.md** file is updated with your instructions on both how to 1. Run and 2. Play your arcade game.
+A clone of a classic arcade game.
 
-For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
+## How to play
+
+The goal of the game is to reach the top of the screen and avoid colliding with the ladybirds. The more times you reach the water, the more ladybirds that will try to obstruct your path. 
+
+To gain points you must collect items that will appear on the screen (Gems). There is also a special item, the DeathRock, which allows you to remove some of the ladybirds in your path, be sure to grab it!
+
+You will begin with 3 lives but will have the opportunity to gain more.
+
+## Screenshot
+![Game Screenshot](https://raw.githubusercontent.com/barryhanna/udacity-nano-deg-project-3/master/screenshots/screenshot.png)
+
+## Starting your game and game controls
+To play the game, simply open the index.html. Click the 'Start' button to begin. Use the Up, Left, Right, and Down arrow keys to navigate.
+
+You can also change how your character looks by selecting a new character (use the 'Choose Character').
+
+## Credits
+The game engine and skeleton code was provided by [Udacity](https://udacity.com). I also used code from this article [Modals](https://lowrey.me/modals-in-pure-es6-javascript/) to make the modal character selection screen. The font used is [Press Start 2P](https://fonts.google.com/specimen/Press+Start+2P)
