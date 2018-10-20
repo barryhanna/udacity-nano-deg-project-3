@@ -1,3 +1,12 @@
 body {
     text-align: center;
 }
+
+p {
+	font-family: 'Press Start 2P';
+	font-size: 1.5em;
+	text-align: left;
+	margin-bottom: 0;
+	width: 505px;
+	margin: 10px auto 0 auto;
+}

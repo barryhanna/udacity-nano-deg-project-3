@@ -61,6 +61,7 @@ class Player {
 
     update() {
         this.checkCollision();
+        scoreboard.update(game.level,player.lives,player.points);
         this.gameWon();
     }
 
@@ -74,7 +75,7 @@ class Player {
                this.x + this.width > enemy.x && 
                this.y < enemy.y + enemy.height && 
                this.y + this.height > enemy.y) {
-               setTimeout(() => this.respawn(),100);
+                this.respawn(true);
             }
         }
 
@@ -131,11 +132,15 @@ class Player {
         }
     }
 
-    respawn() {
+    respawn(died) {
         this.x = 203;
         this.y = BOTTOM;
+        if(died) {
+            this.lives--;
+        }
     }
 }
+
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
@@ -173,10 +178,11 @@ class Game {
         if(this.level % 11 === 0) {
             collectables.push(new DeathRock(getRandomPosition(RIGHT),getRandomPosition(BOTTOM),'images/Rock.png'));
         }
+        scoreboard.update(player.lives,player.points,this.level);
     }
 }
 
-const game = new Game();
+const game = new Game(1);
 
 class Collectable {
     constructor(x,y,sprite) {
@@ -221,6 +227,26 @@ class DeathRock extends Collectable {
         super(x,y,sprite);
     }
 }
+
+class Scoreboard {
+    constructor(levelElement,livesElement,pointsElement) {
+        this.level = levelElement;
+        this.lives = livesElement;
+        this.points = pointsElement;
+    }
+
+    update(level,lives, points) {
+        this.level.innerText = level;
+        this.lives.innerText = lives;
+        this.points.innerText = points;
+    }
+}
+
+
+
+const scoreboard = new Scoreboard(document.querySelector("#level"),
+                                  document.querySelector("#lives"),
+                                  document.querySelector("#points"));
 
 function getRandomPosition(max) {
     return Math.floor(Math.random() * max);
