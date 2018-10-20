@@ -207,6 +207,7 @@ function gameOver() {
     while(allEnemies.pop()) {
         
     }
+    collectables = [];
 }
 
 class Collectable {
@@ -290,6 +291,32 @@ document.addEventListener('keyup', function(e) {
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
-document.querySelector("button").addEventListener("click",function() {
+document.querySelector("#startBtn").addEventListener("click",function() {
     runGame();
 });
+
+
+// based upon this code:
+// https://lowrey.me/modals-in-pure-es6-javascript/
+class Modal {
+  constructor(overlay) {
+    this.overlay = overlay;
+    const closeButton = overlay.querySelector('.button-close')
+    closeButton.addEventListener('click', this.close.bind(this));
+    overlay.addEventListener('click', e => {
+      if (e.srcElement.id === this.overlay.id) {
+        this.close();
+      }
+    });
+  }
+  open() {
+    this.overlay.classList.remove('is-hidden');
+  }
+
+  close() {
+    this.overlay.classList.add('is-hidden');
+  }
+}
+const modal = new Modal(document.querySelector('.modal-overlay'));
+window.openCharacterModal = modal.open.bind(modal);
+//window.openCharacterModal();
