@@ -137,6 +137,9 @@ class Player {
         this.y = BOTTOM;
         if(died) {
             this.lives--;
+            if(this.lives === 0) {
+                gameOver();
+            }
         }
     }
 }
@@ -145,16 +148,22 @@ class Player {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-const enemyRowOne = new Enemy(0,ENEMY_ROW_TOP, BLOCK_WIDTH + (Math.floor(Math.random() * 300)));
-const enemyRowTwo = new Enemy(0,ENEMY_ROW_MIDDLE, BLOCK_WIDTH + (Math.floor(Math.random() * 300)));
-const enemyRowThree = new Enemy(0,ENEMY_ROW_BOTTOM, BLOCK_WIDTH + (Math.floor(Math.random() * 300)));
-
 const allEnemies = [];
-allEnemies.push(enemyRowOne);
-allEnemies.push(enemyRowTwo);
-allEnemies.push(enemyRowThree);
 
 const player = new Player(203,BOTTOM);
+
+function runGame() {
+    gameOver();
+    player.lives = 3;
+    player.points = 0;
+    game.level = 1;
+    const enemyRowOne = new Enemy(0,ENEMY_ROW_TOP, BLOCK_WIDTH + (Math.floor(Math.random() * 300)));
+    const enemyRowTwo = new Enemy(0,ENEMY_ROW_MIDDLE, BLOCK_WIDTH + (Math.floor(Math.random() * 300)));
+    const enemyRowThree = new Enemy(0,ENEMY_ROW_BOTTOM, BLOCK_WIDTH + (Math.floor(Math.random() * 300)));
+    allEnemies.push(enemyRowOne);
+    allEnemies.push(enemyRowTwo);
+    allEnemies.push(enemyRowThree);
+}
 
 class Game {
     constructor(level) {
@@ -193,6 +202,12 @@ function getRandomXPosition() {
 }
 
 const game = new Game(1);
+
+function gameOver() {
+    while(allEnemies.pop()) {
+        
+    }
+}
 
 class Collectable {
     constructor(x,y,sprite) {
@@ -273,4 +288,8 @@ document.addEventListener('keyup', function(e) {
     };
 
     player.handleInput(allowedKeys[e.keyCode]);
+});
+
+document.querySelector("button").addEventListener("click",function() {
+    runGame();
 });
