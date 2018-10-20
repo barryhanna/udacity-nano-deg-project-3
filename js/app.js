@@ -141,7 +141,6 @@ class Player {
     }
 }
 
-
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
@@ -158,7 +157,7 @@ allEnemies.push(enemyRowThree);
 const player = new Player(203,BOTTOM);
 
 class Game {
-    constructor(level=1) {
+    constructor(level) {
         this.level = level;
         this.won = false;
     }
@@ -241,8 +240,6 @@ class Scoreboard {
         this.points.innerText = points;
     }
 }
-
-
 
 const scoreboard = new Scoreboard(document.querySelector("#level"),
                                   document.querySelector("#lives"),
